@@ -35,6 +35,14 @@ class System:
     information = None
     primaryStar = None
 
+  @property
+  def name(self):
+    return self.systemName
+
+  @property
+  def ids(self):
+    return (self.id, self.id64)
+
 class Commander:
   """
   FIXXME
