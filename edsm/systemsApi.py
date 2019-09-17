@@ -1,6 +1,7 @@
 import requests
 from . import base
 from . import exception
+from . import models
 
 class System(base.ApiEndpoint):
   """
@@ -11,7 +12,8 @@ class System(base.ApiEndpoint):
 
   url = base.ApiEndpoint.url + "v1/system"
 
-  def getSystem(self, systemName):
+  @classmethod
+  def getSystem(cls, systemName):
     """
     Requests the entire range of information for a system
 
@@ -19,7 +21,7 @@ class System(base.ApiEndpoint):
     """
 
     try:
-      json = self.query("systemName=" + systemName
+      json = cls.query("systemName=" + systemName
         + "&showId=1"
         + "&showCoordinates=1"
         + "&showPermit=1"
@@ -28,7 +30,7 @@ class System(base.ApiEndpoint):
     except exception.notFoundError:
       raise exception.systemNotFoundError(systemName)
 
-    system = base.System()
+    system = models.System()
     system.systemName = json['name']
     system.id = json['id']
     system.id64 = json['id64']
@@ -40,14 +42,22 @@ class System(base.ApiEndpoint):
     system.primaryStar = json['primaryStar']
     return system
 
-  def getIds(self, systemName):
+  @classmethod
+  def getIds(cls, systemName):
     return None
 
-  def getCoordinates(self, systemName):
+  @classmethod
+  def getCoordinates(cls, systemName):
     return None
 
-  def getInformation(self, systemName):
+  @classmethod
+  def getPermit(cls, systemName):
     return None
 
-  def getPrimaryStar(self, systemName):
+  @classmethod
+  def getInformation(cls, systemName):
+    return None
+
+  @classmethod
+  def getPrimaryStar(cls, systemName):
     return None

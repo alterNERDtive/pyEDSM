@@ -5,7 +5,7 @@ from .systemsApi import System
 class SystemTest(unittest.TestCase):
 
   def test_getSystem_sol(self):
-    system = System().getSystem("Sol")
+    system = System.getSystem("Sol")
 
     # ids
     self.assertEqual(27, system.id)
@@ -40,7 +40,7 @@ class SystemTest(unittest.TestCase):
     self.assertTrue(system.primaryStar['isScoopable'])
 
   def test_getSystem_Beagle(self):
-    system = System().getSystem("Beagle Point")
+    system = System.getSystem("Beagle Point")
 
     # ids
     self.assertEqual(124406, system.id)
@@ -66,4 +66,4 @@ class SystemTest(unittest.TestCase):
 
   def test_getSystem_invalidName(self):
     with self.assertRaises(exception.systemNotFoundError):
-      System().getSystem("Lol")
+      System.getSystem("Lol")
