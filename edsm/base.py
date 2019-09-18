@@ -10,7 +10,7 @@ class ApiEndpoint:
   url = "https://www.edsm.net/api-"
 
   @classmethod
-  def query(cls, params):
+  def query(cls, params=""):
     """
     Queries the API endpoint with the given parameters.
 
