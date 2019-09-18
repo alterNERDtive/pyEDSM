@@ -13,11 +13,11 @@ class System(base.ApiEndpoint):
   url = base.ApiEndpoint.url + "v1/system"
 
   @classmethod
-  def query(cls, systemName):
+  def query(cls, params):
     try:
-      json = super().query(systemName)
+      json = super().query(params)
     except exception.NotFoundError:
-      raise exception.SystemNotFoundError(systemName)
+      raise exception.SystemNotFoundError(params)
     return json
 
   @classmethod

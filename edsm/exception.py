@@ -6,9 +6,9 @@ class NotFoundError(Exception):
     self.name = name
 
 class SystemNotFoundError(NotFoundError):
-  def str(self):
-    return "System \"{}\" not found.".format(self.name)
+  def __str__(self):
+    return "System not found. Params: {}".format(self.args)
 
 class CommanderNotFoundError(NotFoundError):
-  def str(self):
-    return "Commander \"{}\" not found or has not made his flight logs public.".format(self.name)
+  def __str__(self):
+    return "Commander not found or has not made his flight logs public. Params: {}".format(self.args)
