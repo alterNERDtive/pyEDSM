@@ -23,7 +23,7 @@ class System:
 
   @property
   def ids(self):
-    return (self.id, self.id64)
+    return {id:self.id, id64:self.id64}
 
 class Commander:
   """
