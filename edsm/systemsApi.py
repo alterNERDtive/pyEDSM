@@ -27,8 +27,8 @@ class System(base.ApiEndpoint):
         + "&showPermit=1"
         + "&showInformation=1"
         + "&showPrimaryStar=1")
-    except exception.notFoundError:
-      raise exception.systemNotFoundError(systemName)
+    except exception.NotFoundError:
+      raise exception.SystemNotFoundError(systemName)
     return json
 
   @classmethod
@@ -46,8 +46,8 @@ class System(base.ApiEndpoint):
           + "&showPermit=1"
           + "&showInformation=1"
           + "&showPrimaryStar=1")
-    except exception.notFoundError:
-      raise exception.systemNotFoundError(systemName)
+    except exception.NotFoundError:
+      raise exception.SystemNotFoundError(systemName)
     return json
 
   @classmethod
@@ -61,8 +61,8 @@ class System(base.ApiEndpoint):
     try:
       json = cls.query("systemName=" + systemName
           + "&showCoordinates=1")
-    except exception.notFoundError:
-      raise exception.systemNotFoundError(systemName)
+    except exception.NotFoundError:
+      raise exception.SystemNotFoundError(systemName)
     return json
 
   @classmethod
@@ -76,8 +76,8 @@ class System(base.ApiEndpoint):
     try:
       json = cls.query("systemName=" + systemName
           + "&showPermit=1")
-    except exception.notFoundError:
-      raise exception.systemNotFoundError(systemName)
+    except exception.NotFoundError:
+      raise exception.SystemNotFoundError(systemName)
     return json
 
   @classmethod
@@ -91,8 +91,8 @@ class System(base.ApiEndpoint):
     try:
       json = cls.query("systemName=" + systemName
         + "&showInformation=1")
-    except exception.notFoundError:
-      raise exception.systemNotFoundError(systemName)
+    except exception.NotFoundError:
+      raise exception.SystemNotFoundError(systemName)
     return json
 
   @classmethod
@@ -106,6 +106,6 @@ class System(base.ApiEndpoint):
     try:
       json = cls.query("systemName=" + systemName
           + "&showPrimaryStar=1")
-    except exception.notFoundError:
-      raise exception.systemNotFoundError(systemName)
+    except exception.NotFoundError:
+      raise exception.SystemNotFoundError(systemName)
     return json

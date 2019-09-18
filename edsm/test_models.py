@@ -65,5 +65,5 @@ class SystemTest(unittest.TestCase):
     self.assertTrue(system.primaryStar['isScoopable'])
 
   def test_System_invalidName(self):
-    with self.assertRaises(exception.systemNotFoundError):
+    with self.assertRaises(exception.SystemNotFoundError):
       System("Lol")

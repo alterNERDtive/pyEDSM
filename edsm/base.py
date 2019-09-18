@@ -18,8 +18,8 @@ class ApiEndpoint:
     """
     response = requests.get(cls.url + "?" + params)
     if response.status_code != 200:
-      raise exception.serverError()
+      raise exception.ServerError()
     json = response.json()
     if not json:
-      raise exception.notFoundError()
+      raise exception.NotFoundError()
     return json

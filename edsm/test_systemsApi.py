@@ -69,7 +69,7 @@ class SystemTest(unittest.TestCase):
     self.assertTrue(json['primaryStar']['isScoopable'])
 
   def test_getSystem_invalidName(self):
-    with self.assertRaises(exception.systemNotFoundError):
+    with self.assertRaises(exception.SystemNotFoundError):
       System.getSystem("Lol")
 
   def test_getIds_Sol(self):
@@ -87,7 +87,7 @@ class SystemTest(unittest.TestCase):
     self.assertEqual(81973396946, json['id64'])
 
   def test_getIds_invalidName(self):
-    with self.assertRaises(exception.systemNotFoundError):
+    with self.assertRaises(exception.SystemNotFoundError):
       System.getIds("Lol")
 
   def test_getCoordinates_Sol(self):
@@ -109,7 +109,7 @@ class SystemTest(unittest.TestCase):
     self.assertEqual(json['coords']['z'], 65269.75)
 
   def test_getCoordinates_invalidName(self):
-    with self.assertRaises(exception.systemNotFoundError):
+    with self.assertRaises(exception.SystemNotFoundError):
       System.getCoordinates("Lol")
 
   def test_getPermit_Sol(self):
@@ -126,7 +126,7 @@ class SystemTest(unittest.TestCase):
     self.assertFalse(json['requirePermit'])
 
   def test_getPermit_invalidName(self):
-    with self.assertRaises(exception.systemNotFoundError):
+    with self.assertRaises(exception.SystemNotFoundError):
       System.getPermit("Lol")
 
   def test_getInformation_Sol(self):
@@ -151,7 +151,7 @@ class SystemTest(unittest.TestCase):
     self.assertFalse(json['information'])
 
   def test_getInformation_invalidName(self):
-    with self.assertRaises(exception.systemNotFoundError):
+    with self.assertRaises(exception.SystemNotFoundError):
       System.getInformation("Lol")
 
   def test_getPrimaryStar_Sol(self):
@@ -173,5 +173,5 @@ class SystemTest(unittest.TestCase):
     self.assertTrue(json['primaryStar']['isScoopable'])
 
   def test_getPrimaryStar_invalidName(self):
-    with self.assertRaises(exception.systemNotFoundError):
+    with self.assertRaises(exception.SystemNotFoundError):
       System.getPrimaryStar("Lol")
