@@ -61,10 +61,12 @@ class System:
     json = systemsApi.System.getSystem(name)
     self.systemName = json['name']
     self.id = json['id']
+    self.id64 = None
     if json['id64']:
       self.id64 = json['id64']
     self.coords = json['coords']
     self.requirePermit = json['requirePermit']
+    self.permitName = None
     if self.requirePermit:
       self.permitName = json['permitName']
     self.information = json['information']
