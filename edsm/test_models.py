@@ -1,11 +1,11 @@
 import unittest
 from . import exception
-from .systemsApi import System
+from .models import System
 
 class SystemTest(unittest.TestCase):
 
-  def test_getSystem_sol(self):
-    system = System.getSystem("Sol")
+  def test_System_sol(self):
+    system = System("Sol")
 
     # ids
     self.assertEqual(27, system.id)
@@ -39,8 +39,8 @@ class SystemTest(unittest.TestCase):
     self.assertEqual("Sol", system.primaryStar['name'])
     self.assertTrue(system.primaryStar['isScoopable'])
 
-  def test_getSystem_Beagle(self):
-    system = System.getSystem("Beagle Point")
+  def test_System_Beagle(self):
+    system = System("Beagle Point")
 
     # ids
     self.assertEqual(124406, system.id)
@@ -64,6 +64,6 @@ class SystemTest(unittest.TestCase):
     self.assertEqual("Beagle Point", system.primaryStar['name'])
     self.assertTrue(system.primaryStar['isScoopable'])
 
-  def test_getSystem_invalidName(self):
+  def test_System_invalidName(self):
     with self.assertRaises(exception.systemNotFoundError):
-      System.getSystem("Lol")
+      System("Lol")

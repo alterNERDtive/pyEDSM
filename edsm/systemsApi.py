@@ -29,19 +29,7 @@ class System(base.ApiEndpoint):
         + "&showPrimaryStar=1")
     except exception.notFoundError:
       raise exception.systemNotFoundError(systemName)
-
-    system = models.System()
-    system.systemName = json['name']
-    system.id = json['id']
-    if json['id64']:
-      system.id64 = json['id64']
-    system.coords = json['coords']
-    system.requirePermit = json['requirePermit']
-    if system.requirePermit:
-      system.permitName = json['permitName']
-    system.information = json['information']
-    system.primaryStar = json['primaryStar']
-    return system
+    return json
 
   @classmethod
   def getIds(cls, systemName):
