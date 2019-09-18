@@ -33,20 +33,79 @@ class System(base.ApiEndpoint):
 
   @classmethod
   def getIds(cls, systemName):
-    return None
+    """
+    Requests the entire range of information for a system.
+
+    :param systemName: name of the system in question
+    """
+
+    try:
+      json = cls.query("systemName=" + systemName
+          + "&showId=1"
+          + "&showCoordinates=1"
+          + "&showPermit=1"
+          + "&showInformation=1"
+          + "&showPrimaryStar=1")
+    except exception.notFoundError:
+      raise exception.systemNotFoundError(systemName)
+    return json
 
   @classmethod
   def getCoordinates(cls, systemName):
-    return None
+    """
+    Requests coordinates for a system.
+
+    :param systemName: name of the system in question
+    """
+
+    try:
+      json = cls.query("systemName=" + systemName
+          + "&showCoordinates=1")
+    except exception.notFoundError:
+      raise exception.systemNotFoundError(systemName)
+    return json
 
   @classmethod
   def getPermit(cls, systemName):
-    return None
+    """
+    Requests permit information for a system.
+
+    :param systemName: name of the system in question
+    """
+
+    try:
+      json = cls.query("systemName=" + systemName
+          + "&showPermit=1")
+    except exception.notFoundError:
+      raise exception.systemNotFoundError(systemName)
+    return json
 
   @classmethod
   def getInformation(cls, systemName):
-    return None
+    """
+    Requests faction information for a system.
+
+    :param systemName: name of the system in question
+    """
+
+    try:
+      json = cls.query("systemName=" + systemName
+        + "&showInformation=1")
+    except exception.notFoundError:
+      raise exception.systemNotFoundError(systemName)
+    return json
 
   @classmethod
   def getPrimaryStar(cls, systemName):
-    return None
+    """
+    Requests primary star information for a system.
+
+    :param systemName: name of the system in question
+    """
+
+    try:
+      json = cls.query("systemName=" + systemName
+          + "&showPrimaryStar=1")
+    except exception.notFoundError:
+      raise exception.systemNotFoundError(systemName)
+    return json
