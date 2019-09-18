@@ -3,13 +3,25 @@ from . import systemsApi, statusApi
 
 class Commander:
   """
+  Model for a CMDR. Uses both the “commander” and “logs” endpoints for different
+  things.
+
   FIXXME
   """
   pass
 
 class Status:
   """
-  FIXXME
+  Model for the “status” API endpoint. Tells you the game servers’ current
+  status. it will automatically cache values for 2 minutes; given EDSM only
+  updates their status endpoint from Frontier’s servers roughly every
+  30 minutes, that should be more than frequent enough.
+
+  :attribute lastUpdate: the time EDSM last updated their status at (datetime)
+  :attribute type: status type (string); should be “success”, “warning” or
+  “danger”
+  :attribute message: status message (string)
+  :attribute status: status code (int)
   """
   def __init__(self):
     self.__lastUpdate = None
@@ -55,7 +67,16 @@ class Status:
 
 class System:
   """
-  FIXXME
+  Model for a star system. Uses both the “system” and “systems” API endpoints.
+
+  :attribute name: the system’s name (string)
+  :attribute id: the system’s id (int)
+  :attribute id64: the system’s id64 (int, may be None)
+  :attribute coords: the systems x, y and z coordinates (dict)
+  :attribute requirePermit: system requires a permit to access (bool)
+  :attribute permitName: the name of the required permit (string, may be None)
+  :attribute information: (faction) information (dict, may be empty)
+  :attribute primaryStar: information about the primary star (dict)
   """
   def __init__(self, name):
     json = systemsApi.System.getSystem(name)
