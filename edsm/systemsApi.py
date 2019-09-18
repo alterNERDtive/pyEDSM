@@ -13,6 +13,14 @@ class System(base.ApiEndpoint):
   url = base.ApiEndpoint.url + "v1/system"
 
   @classmethod
+  def query(cls, systemName):
+    try:
+      json = super().query(systemName)
+    except exception.NotFoundError:
+      raise exception.SystemNotFoundError(systemName)
+    return json
+
+  @classmethod
   def getSystem(cls, systemName):
     """
     Requests the entire range of information for a system.
@@ -20,15 +28,12 @@ class System(base.ApiEndpoint):
     :param systemName: name of the system in question
     """
 
-    try:
-      json = cls.query("systemName=" + systemName
+    json = cls.query("systemName=" + systemName
         + "&showId=1"
         + "&showCoordinates=1"
         + "&showPermit=1"
         + "&showInformation=1"
         + "&showPrimaryStar=1")
-    except exception.NotFoundError:
-      raise exception.SystemNotFoundError(systemName)
     return json
 
   @classmethod
@@ -39,15 +44,8 @@ class System(base.ApiEndpoint):
     :param systemName: name of the system in question
     """
 
-    try:
-      json = cls.query("systemName=" + systemName
-          + "&showId=1"
-          + "&showCoordinates=1"
-          + "&showPermit=1"
-          + "&showInformation=1"
-          + "&showPrimaryStar=1")
-    except exception.NotFoundError:
-      raise exception.SystemNotFoundError(systemName)
+    json = cls.query("systemName=" + systemName
+        + "&showId=1")
     return json
 
   @classmethod
@@ -58,11 +56,8 @@ class System(base.ApiEndpoint):
     :param systemName: name of the system in question
     """
 
-    try:
-      json = cls.query("systemName=" + systemName
-          + "&showCoordinates=1")
-    except exception.NotFoundError:
-      raise exception.SystemNotFoundError(systemName)
+    json = cls.query("systemName=" + systemName
+        + "&showCoordinates=1")
     return json
 
   @classmethod
@@ -73,11 +68,8 @@ class System(base.ApiEndpoint):
     :param systemName: name of the system in question
     """
 
-    try:
-      json = cls.query("systemName=" + systemName
-          + "&showPermit=1")
-    except exception.NotFoundError:
-      raise exception.SystemNotFoundError(systemName)
+    json = cls.query("systemName=" + systemName
+        + "&showPermit=1")
     return json
 
   @classmethod
@@ -88,11 +80,8 @@ class System(base.ApiEndpoint):
     :param systemName: name of the system in question
     """
 
-    try:
-      json = cls.query("systemName=" + systemName
-        + "&showInformation=1")
-    except exception.NotFoundError:
-      raise exception.SystemNotFoundError(systemName)
+    json = cls.query("systemName=" + systemName
+      + "&showInformation=1")
     return json
 
   @classmethod
@@ -103,9 +92,6 @@ class System(base.ApiEndpoint):
     :param systemName: name of the system in question
     """
 
-    try:
-      json = cls.query("systemName=" + systemName
-          + "&showPrimaryStar=1")
-    except exception.NotFoundError:
-      raise exception.SystemNotFoundError(systemName)
+    json = cls.query("systemName=" + systemName
+        + "&showPrimaryStar=1")
     return json
