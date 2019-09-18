@@ -1,6 +1,30 @@
 import unittest
+import datetime
 from . import exception
-from .models import System
+from .models import System, Status
+
+class StatusTest(unittest.TestCase):
+
+  def test_Status_initial(self):
+    status = Status()
+    self.assertIsNotNone(status.lastUpdate)
+    self.assertIsNotNone(status.type)
+    self.assertIsNotNone(status.message)
+    self.assertIsNotNone(status.status)
+
+  def test_Status_cacheUpdate(self):
+    status = Status()
+    # populate initially
+    status.forceUpdate()
+    lastCacheTime = status.cachedAt
+    status.cachedAt = datetime.datetime.now() - datetime.timedelta(minutes=2, seconds=30)
+    status.status
+    # should have updated now
+    self.assertNotEqual(lastCacheTime, status.cachedAt)
+    lastCacheTime = status.cachedAt
+    # force update
+    status.forceUpdate()
+    self.assertNotEqual(lastCacheTime, status.cachedAt)
 
 class SystemTest(unittest.TestCase):
 
