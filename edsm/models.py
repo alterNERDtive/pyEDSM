@@ -43,7 +43,7 @@ class Status:
     Forces an update from the EDSM Api.
     """
     json = statusApi.Status.getServerStatus()
-    self.__lastUpdate = json['lastUpdate']
+    self.__lastUpdate = datetime.datetime.strptime(json['lastUpdate'], '%Y-%m-%d %H:%M:%S')
     self.__type = json['type']
     self.__message = json['message']
     self.__status = json['status']
