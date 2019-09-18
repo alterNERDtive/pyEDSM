@@ -57,7 +57,7 @@ class System:
   """
   FIXXME
   """
-  def __init__(self, name=""):
+  def __init__(self, name):
     json = systemsApi.System.getSystem(name)
     self.systemName = json['name']
     self.id = json['id']
