@@ -4,7 +4,7 @@ from .models import System
 
 class SystemTest(unittest.TestCase):
 
-  def test_System_sol(self):
+  def test_System_Sol(self):
     system = System("Sol")
 
     # ids
