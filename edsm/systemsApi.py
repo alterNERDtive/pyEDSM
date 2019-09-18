@@ -39,7 +39,7 @@ class System(base.ApiEndpoint):
   @classmethod
   def getIds(cls, systemName):
     """
-    Requests the entire range of information for a system.
+    Requests the id and id64 for a system.
 
     :param systemName: name of the system in question
     """
