@@ -15,7 +15,7 @@ class System(base.ApiEndpoint):
   @classmethod
   def getSystem(cls, systemName):
     """
-    Requests the entire range of information for a system
+    Requests the entire range of information for a system.
 
     :param systemName: name of the system in question
     """
@@ -33,7 +33,8 @@ class System(base.ApiEndpoint):
     system = models.System()
     system.systemName = json['name']
     system.id = json['id']
-    system.id64 = json['id64']
+    if json['id64']:
+      system.id64 = json['id64']
     system.coords = json['coords']
     system.requirePermit = json['requirePermit']
     if system.requirePermit:
