@@ -30,6 +30,7 @@ class SystemTest(unittest.TestCase):
 
   def test_System_Sol(self):
     system = System("Sol")
+    system.fetch()
 
     # ids
     self.assertEqual(27, system.id)
@@ -65,6 +66,7 @@ class SystemTest(unittest.TestCase):
 
   def test_System_Beagle(self):
     system = System("Beagle Point")
+    system.fetch()
 
     # ids
     self.assertEqual(124406, system.id)
@@ -80,7 +82,8 @@ class SystemTest(unittest.TestCase):
     self.assertFalse(system.requirePermit)
 
     # information
-    self.assertFalse(system.information)
+    self.assertEqual(1, len(system.information))
+    self.assertTrue(system.information['cachedAt'])
 
     # primaryStar
     self.assertTrue(system.primaryStar)
@@ -88,6 +91,10 @@ class SystemTest(unittest.TestCase):
     self.assertEqual("Beagle Point", system.primaryStar['name'])
     self.assertTrue(system.primaryStar['isScoopable'])
 
+  # FIXXME: I need some tests for the individual getters.
+
   def test_System_invalidName(self):
     with self.assertRaises(exception.SystemNotFoundError):
-      System("Lol")
+      # FIXXME: I should probably look for the system at instance time …
+      system = System("Lol")
+      system.forceUpdate()

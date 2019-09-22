@@ -75,28 +75,102 @@ class System:
   :attribute coords: the systems x, y and z coordinates (dict)
   :attribute requirePermit: system requires a permit to access (bool)
   :attribute permitName: the name of the required permit (string, may be None)
-  :attribute information: (faction) information (dict, may be empty)
+  :attribute information: (faction) information (dict, may be empty, cached for
+  2h)
   :attribute primaryStar: information about the primary star (dict)
+
+  :method fetch: updates all attributes in one go
   """
-  def __init__(self, name):
-    json = systemsApi.System.getSystem(name)
-    self.systemName = json['name']
-    self.id = json['id']
-    self.id64 = None
-    if json['id64']:
-      self.id64 = json['id64']
-    self.coords = json['coords']
-    self.requirePermit = json['requirePermit']
-    self.permitName = None
-    if self.requirePermit:
-      self.permitName = json['permitName']
-    self.information = json['information']
-    self.primaryStar = json['primaryStar']
+  def __init__(self, name, coords=None, id=None, id64=None):
+    # FIXXME: this probably needs some way to make sure the system exists. Or
+    # not. Not sure yet how I want to handle wrong system names.
+    self.name = name
+    self.__coords = coords
+    self.__id = id
+    self.__id64 = id64
+    self.__requirePermit = None
+    self.__permitName = None
+    self.__information = {'cachedAt': None}
+    self.__primaryStar = None
 
   @property
   def name(self):
-    return self.systemName
+    return self.__systemName
+  @name.setter
+  def name(self, name):
+    self.__systemName = name
 
+  @property
+  def coords(self):
+    if self.__coords == None:
+      self.__coords = systemsApi.System.getCoordinates(self.name)['coords']
+    return self.__coords
+
+  @property
+  def requirePermit(self):
+    if self.__requirePermit == None:
+      self.__updatePermit()
+    return self.__requirePermit
+  @property
+  def permitName(self):
+    if self.__requirePermit == None:
+      self.__updatePermit()
+    return self.__permitName
+  def __updatePermit(self):
+    permitInfo = systemsApi.System.getPermit(self.name)
+    self.__requirePermit = permitInfo['requirePermit']
+    if self.__requirePermit:
+      self.__permitName = permitInfo['permitName']
+
+  @property
+  def id(self):
+    if self.__id == None:
+      self.__updateIDs()
+    return self.__id
+  @property
+  def id64(self):
+    if self.__id64 == None:
+      self.__updateIDs()
+    return self.__id64
   @property
   def ids(self):
     return {id:self.id, id64:self.id64}
+  def __updateIDs(self):
+    ids = systemsApi.System.getIds(self.name)
+    self.__id = ids['id']
+    if ids['id64']:
+      self.__id64 = ids['id64']
+
+  @property
+  def information(self):
+    if self.__information['cachedAt'] == None or (datetime.datetime.now()
+    - self.__information['cachedAt'] > datetime.timedelta(hours=2)):
+      self.__information = systemsApi.System.getInformation(self.name)['information']
+      self.__information['cachedAt'] = datetime.datetime.now()
+    return self.__information
+
+  @property
+  def primaryStar(self):
+    if self.__primaryStar == None:
+      self.__primaryStar = systemsApi.System.getPrimaryStar(self.name)['primaryStar']
+    return self.__primaryStar
+
+  def fetch(self):
+    """
+    Fetches all information about the system from the API (again). Useful if you
+    need everything anyway, it’s faster to fetch it in one single call.
+    """
+    json = systemsApi.System.getSystem(self.name)
+    self.name = json['name']
+    self.__id = json['id']
+    self.__id64 = None
+    if json['id64']:
+      self.__id64 = json['id64']
+    self.__coords = json['coords']
+    self.__requirePermit = json['requirePermit']
+    self.__permitName = None
+    if self.requirePermit:
+      self.__permitName = json['permitName']
+    self.__information = json['information']
+    self.__information['cachedAt'] = datetime.datetime.now()
+    self.__primaryStar = json['primaryStar']
