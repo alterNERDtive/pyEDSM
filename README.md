@@ -32,7 +32,7 @@ Until then, have fun :)
 Once I’ve actually written it, you’ll find the documentation for the actual API 
 wrappers that return raw JSON linked here, including example outputs.
 
-## Contributing ##
+## Need Help / Want to Contribute? ##
 
 If you run into any problems, please look at the 
 [develop](https://github.com/alterNERDtive/pyEDSM/tree/develop) branch and see 
@@ -41,3 +41,6 @@ if it’s fixed there already.
 If you have no idea what I was saying in that last paragraph and / or the things 
 mentioned there don’t fix your problem, please [file an 
 issue](https://github.com/alterNERDtive/pyEDSM/issues). Thanks! :)
+
+You can also [say “Hi” on Discord](https://discord.gg/Y8qM7N) if that is your 
+thing.
