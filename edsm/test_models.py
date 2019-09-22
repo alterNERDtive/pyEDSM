@@ -29,8 +29,7 @@ class StatusTest(unittest.TestCase):
 class SystemTest(unittest.TestCase):
 
   def test_System_Sol(self):
-    system = System("Sol")
-    system.fetch()
+    system = System("Sol").fetch()
 
     # ids
     self.assertEqual(27, system.id)
@@ -65,8 +64,7 @@ class SystemTest(unittest.TestCase):
     self.assertTrue(system.primaryStar['isScoopable'])
 
   def test_System_Beagle(self):
-    system = System("Beagle Point")
-    system.fetch()
+    system = System("Beagle Point").fetch()
 
     # ids
     self.assertEqual(124406, system.id)
@@ -96,5 +94,4 @@ class SystemTest(unittest.TestCase):
   def test_System_invalidName(self):
     with self.assertRaises(exception.SystemNotFoundError):
       # FIXXME: I should probably look for the system at instance time …
-      system = System("Lol")
-      system.forceUpdate()
+      system = System("Lol").fetch()

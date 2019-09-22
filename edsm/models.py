@@ -174,3 +174,5 @@ class System:
     self.__information = json['information']
     self.__information['cachedAt'] = datetime.datetime.now()
     self.__primaryStar = json['primaryStar']
+
+    return self
