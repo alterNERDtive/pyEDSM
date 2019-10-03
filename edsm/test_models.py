@@ -63,6 +63,9 @@ class SystemTest(unittest.TestCase):
     self.assertEqual("Sol", system.primaryStar['name'])
     self.assertTrue(system.primaryStar['isScoopable'])
 
+  def test_BodyCount_Sol(self):
+    self.assertEqual(40, System("Sol").bodyCount)
+
   def test_System_Beagle(self):
     system = System("Beagle Point").fetch()
 
@@ -88,6 +91,9 @@ class SystemTest(unittest.TestCase):
     self.assertEqual("K (Yellow-Orange) Star", system.primaryStar['type'])
     self.assertEqual("Beagle Point", system.primaryStar['name'])
     self.assertTrue(system.primaryStar['isScoopable'])
+
+  def test_BodyCount_Beagle(self):
+    self.assertEqual(10, System("Beagle Point").bodyCount)
 
   # FIXXME: I need some tests for the individual getters.
 

@@ -1,5 +1,5 @@
 import datetime
-from . import systemsApi, statusApi
+from . import systemApi, systemsApi, statusApi
 
 class Commander:
   """
@@ -78,6 +78,7 @@ class System:
   :attribute information: (faction) information (dict, may be empty, cached for
   2h)
   :attribute primaryStar: information about the primary star (dict)
+  :attribute bodyCount: amount of bodies in the system (int)
 
   :method fetch: updates all attributes in one go
   """
@@ -154,6 +155,15 @@ class System:
     if self.__primaryStar == None:
       self.__primaryStar = systemsApi.System.getPrimaryStar(self.name)['primaryStar']
     return self.__primaryStar
+
+  @property
+  def bodyCount(self):
+    """
+    This is not going to be cached, since the primary use will probably be in
+    exploring; hence the amount of bodies EDSM knows about might change on the
+    spot.
+    """
+    return len(systemApi.Bodies.getBodies(self.name)['bodies'])
 
   def fetch(self):
     """
