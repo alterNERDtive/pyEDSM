@@ -5,7 +5,7 @@ from . import models
 
 class Bodies(base.ApiEndpoint):
   """
-  The “system” endpoint of the “systems” API
+  The “bodies” endpoint of the “system” API
 
   :attribute url: the API endpoint URL
   """
