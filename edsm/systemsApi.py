@@ -1,4 +1,5 @@
 import requests
+import urllib.parse
 from . import base
 from . import exception
 from . import models
@@ -13,9 +14,9 @@ class System(base.ApiEndpoint):
   url = base.ApiEndpoint.url + "v1/system"
 
   @classmethod
-  def query(cls, params):
+  def query(cls, name, params):
     try:
-      json = super().query(params)
+      json = super().query("systemName=" + urllib.parse.quote(name,safe='') + params)
     except exception.NotFoundError:
       raise exception.SystemNotFoundError(params)
     return json
@@ -28,8 +29,8 @@ class System(base.ApiEndpoint):
     :param systemName: name of the system in question
     """
 
-    json = cls.query("systemName=" + systemName
-        + "&showId=1"
+    json = cls.query(systemName,
+        "&showId=1"
         + "&showCoordinates=1"
         + "&showPermit=1"
         + "&showInformation=1"
@@ -44,8 +45,8 @@ class System(base.ApiEndpoint):
     :param systemName: name of the system in question
     """
 
-    json = cls.query("systemName=" + systemName
-        + "&showId=1")
+    json = cls.query(systemName,
+        "&showId=1")
     return json
 
   @classmethod
@@ -56,8 +57,8 @@ class System(base.ApiEndpoint):
     :param systemName: name of the system in question
     """
 
-    json = cls.query("systemName=" + systemName
-        + "&showCoordinates=1")
+    json = cls.query(systemName,
+        "&showCoordinates=1")
     return json
 
   @classmethod
@@ -68,8 +69,8 @@ class System(base.ApiEndpoint):
     :param systemName: name of the system in question
     """
 
-    json = cls.query("systemName=" + systemName
-        + "&showPermit=1")
+    json = cls.query(systemName,
+        "&showPermit=1")
     return json
 
   @classmethod
@@ -80,8 +81,8 @@ class System(base.ApiEndpoint):
     :param systemName: name of the system in question
     """
 
-    json = cls.query("systemName=" + systemName
-      + "&showInformation=1")
+    json = cls.query(systemName,
+      "&showInformation=1")
     return json
 
   @classmethod
@@ -92,6 +93,6 @@ class System(base.ApiEndpoint):
     :param systemName: name of the system in question
     """
 
-    json = cls.query("systemName=" + systemName
-        + "&showPrimaryStar=1")
+    json = cls.query(systemName,
+        "&showPrimaryStar=1")
     return json

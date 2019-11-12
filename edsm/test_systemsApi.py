@@ -175,3 +175,9 @@ class SystemTest(unittest.TestCase):
   def test_getPrimaryStar_invalidName(self):
     with self.assertRaises(exception.SystemNotFoundError):
       System.getPrimaryStar("Lol")
+
+  def test_wonkySystemNames(self):
+    System.getSystem("BD+49 1280")
+    # FIXXME: I remember finding a system with “[]” in the name, but can’t
+    # remember … and the search function in the usual tools aren’t very helpful
+    # :)

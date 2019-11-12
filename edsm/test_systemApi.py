@@ -119,3 +119,9 @@ class BodiesTest(unittest.TestCase):
     self.assertEqual(57.64743634259259, planet['rotationalPeriod'])
     self.assertFalse(planet['rotationalPeriodTidallyLocked'])
     self.assertEqual(0.198277, planet['axialTilt'])
+
+  def test_wonkySystemNames(self):
+    Bodies.getBodies("BD+49 1280")
+    # FIXXME: I remember finding a system with “[]” in the name, but can’t
+    # remember … and the search function in the usual tools aren’t very helpful
+    # :)

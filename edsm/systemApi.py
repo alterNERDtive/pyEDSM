@@ -1,4 +1,5 @@
 import requests
+import urllib.parse
 from . import base
 from . import exception
 from . import models
@@ -28,7 +29,7 @@ class Bodies(base.ApiEndpoint):
     :param systemName: name of the system in question
     """
 
-    json = cls.query("systemName=" + systemName)
+    json = cls.query("systemName=" + urllib.parse.quote(systemName, safe=''))
     return json
 
   @classmethod
