@@ -5,7 +5,21 @@
 - [x] Status
 - [ ] Commander
 - [ ] Logs
+  - [ ] get-logs
+  - [x] get-position
+  - [ ] set-comment
+  - [ ] get-comment
+  - [ ] get-comments
 - [ ] System
+  - [x] bodies
+  - [ ] estimated-value
+  - [ ] stations
+  - [ ] market
+  - [ ] shipyard
+  - [ ] outfitting
+  - [ ] factions
+  - [ ] traffic
+  - [ ] deaths
 - [ ] Systems
   - [x] system
   - [ ] systems
