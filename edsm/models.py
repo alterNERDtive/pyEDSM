@@ -1,14 +1,50 @@
 import datetime
-from . import systemApi, systemsApi, statusApi
+from . import logsApi, systemApi, systemsApi, statusApi
 
 class Commander:
   """
   Model for a CMDR. Uses both the “commander” and “logs” endpoints for different
   things.
 
-  FIXXME
+  :attribute name: the commander’s name (string)
+  :attribute apiKey: the commander’s EDSM API key (string)
+  :attribute currentPosition: x, y and z coordinates fo the commander’s current
+  position (dict)
+  :attribute currentSystem: the system the commander is currently in (string)
+  :attribute lastActivity: date and time of the commander’s last uploaded
+  activity (string, format: YYYY-MM-DD HH-MM-SS)
+  :attribute profileUrl: the commander’s profile on EDSM (string)
   """
-  pass
+
+  def __init__(self, name, apiKey=""):
+    self.name = name
+    self.apiKey = apiKey
+    self.__profileUrl__ = None
+
+  @property
+  def currentPosition(self):
+    json = logsApi.Position.getPosition(self.name, self.apiKey)
+    self.__profileUrl__ = json['url']
+    return json['coordinates']
+
+  @property
+  def currentSystem(self):
+    json = logsApi.Position.getSystem(self.name, self.apiKey)
+    self.__profileUrl__ = json['url']
+    return json['system']
+
+  @property
+  def lastActivity(self):
+    json = logsApi.Position.getSystem(self.name, self.apiKey)
+    self.__profileUrl__ = json['url']
+    return json['dateLastActivity']
+
+  @property
+  def profileUrl(self):
+    if self.__profileUrl__ == None:
+      json = logsApi.Position.getSystem(self.name, self.apiKey)
+      self.__profileUrl__ = json['url']
+    return self.__profileUrl__
 
 class Status:
   """

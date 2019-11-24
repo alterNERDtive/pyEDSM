@@ -1,7 +1,43 @@
 import unittest
 import datetime
 from . import exception
-from .models import System, Status
+from .models import Commander, System, Status
+
+class CommanderTest(unittest.TestCase):
+
+  def test_commander_public_IHFYD(self):
+    cmdr = Commander("IHaveFuelYouDont")
+
+    # position
+    coords = cmdr.currentPosition
+    self.assertEqual(25.40625, coords['x'])
+    self.assertEqual(-31.0625, coords['y'])
+    self.assertEqual(41.625, coords['z'])
+
+    # system
+    self.assertEqual("Dromi", cmdr.currentSystem)
+
+    # last activity
+    self.assertIsNotNone(cmdr.lastActivity)
+
+    # profile
+    self.assertEqual("https://www.edsm.net/en/user/profile/id/86423/cmdr/IHaveFuelYouDont", cmdr.profileUrl)
+
+  def test_commander_profileUrl_cache(self):
+    cmdr = Commander("shouldntMatter")
+    cmdr.__profileUrl__ = "something_random"
+    self.assertEqual("something_random", cmdr.profileUrl)
+
+  def test_commander_notFound(self):
+    cmdr = Commander("udofsiadefsudtirasedjutrsotusiae")
+    with self.assertRaises(exception.CommanderNotFoundError):
+      cmdr.currentPosition
+    with self.assertRaises(exception.CommanderNotFoundError):
+      cmdr.currentSystem
+    with self.assertRaises(exception.CommanderNotFoundError):
+      cmdr.lastActivity
+    with self.assertRaises(exception.CommanderNotFoundError):
+      cmdr.profileUrl
 
 class StatusTest(unittest.TestCase):
 
