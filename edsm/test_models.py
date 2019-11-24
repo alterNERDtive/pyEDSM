@@ -98,6 +98,4 @@ class SystemTest(unittest.TestCase):
   # FIXXME: I need some tests for the individual getters.
 
   def test_System_invalidName(self):
-    with self.assertRaises(exception.SystemNotFoundError):
-      # FIXXME: I should probably look for the system at instance time …
-      system = System("Lol").fetch()
+    self.assertRaises(exception.SystemNotFoundError, System("Lol").fetch)
