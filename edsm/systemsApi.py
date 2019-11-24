@@ -18,7 +18,7 @@ class System(base.ApiEndpoint):
     try:
       json = super().query("systemName=" + urllib.parse.quote(name,safe='') + params)
     except exception.NotFoundError:
-      raise exception.SystemNotFoundError(params)
+      raise exception.SystemNotFoundError("systemName=" + name + params)
     return json
 
   @classmethod
