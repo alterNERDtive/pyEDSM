@@ -4,7 +4,7 @@ class ServerError(Exception):
   doesn’t reply with a `200 OK`, this is what’s going to be raised.
   """
   def __str__(self):
-    return "URL: {}".format(self.args)
+    return "URL: {}, params: {}".format(self.args[0], self.args[1])
   pass
 
 class NotFoundError(Exception):

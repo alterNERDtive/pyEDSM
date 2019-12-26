@@ -29,7 +29,7 @@ class Bodies(base.ApiEndpoint):
     :param systemName: name of the system in question
     """
 
-    json = cls.query("systemName=" + urllib.parse.quote(systemName, safe=''))
+    json = cls.query({'systemName': systemName})
     return json
 
   @classmethod
@@ -40,5 +40,5 @@ class Bodies(base.ApiEndpoint):
     :param systemId: ID of the system in question
     """
 
-    json = cls.query("systemId=" + str(systemId))
+    json = cls.query({'systemId': str(systemId)})
     return json

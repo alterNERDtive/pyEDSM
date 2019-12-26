@@ -36,10 +36,10 @@ class Position(base.ApiEndpoint):
     :param apiKey: the commander’s EDSM API key
     """
 
-    json = cls.query("commanderName="
-        + urllib.parse.quote(commanderName, safe='')
-        + "&apiKey=" + apiKey
-        + "&showCoordinates=1")
+    json = cls.query({'commanderName': commanderName,
+          'apiKey': apiKey,
+          'showId': 1,
+          'showCoordinates': 1})
     return json
 
   @classmethod
@@ -54,8 +54,7 @@ class Position(base.ApiEndpoint):
     :param apiKey: the commander’s EDSM API key
     """
 
-    json = cls.query("commanderName="
-        + urllib.parse.quote(commanderName, safe='')
-        + "&apiKey=" + apiKey
-        + "&showId=1")
+    json = cls.query({'commanderName': commanderName,
+            'showId': 1,
+            'apiKey': apiKey})
     return json
