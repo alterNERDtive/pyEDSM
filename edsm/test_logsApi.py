@@ -23,7 +23,7 @@ class PositionTest(unittest.TestCase):
 
   def test_getPosition_notFound(self):
     self.assertRaises(exception.CommanderNotFoundError,
-      Position.getPosition, "efgsias.oshsudifaesuitrna")
+        Position.getPosition, "efgsias.oshsudifaesuitrna")
 
   def test_getSystem_public_IHFYD(self):
     json = Position.getSystem("IHaveFuelYouDont")
