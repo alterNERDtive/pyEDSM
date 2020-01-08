@@ -1,5 +1,4 @@
 import requests
-import urllib.parse
 from . import base
 from . import exception
 from . import models
