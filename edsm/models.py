@@ -1,5 +1,6 @@
 import datetime
 from natsort import natsorted
+from operator import attrgetter
 
 from . import logsApi, systemApi, systemsApi, statusApi
 from .base import Positionable
@@ -246,7 +247,7 @@ class System(Positionable):
       systems.append(System(system['name'], system['coords'], system['id'],
         system['id64']))
 
-    return systems
+    return natsorted(systems, key=attrgetter("name"))
 
   # comparison operators!
 
