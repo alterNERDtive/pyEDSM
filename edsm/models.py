@@ -1,7 +1,9 @@
 import datetime
-from . import logsApi, systemApi, systemsApi, statusApi
 
-class Commander:
+from . import logsApi, systemApi, systemsApi, statusApi
+from .base import Positionable
+
+class Commander(Positionable):
   """
   Model for a CMDR. Uses both the “commander” and “logs” endpoints for different
   things.
@@ -26,6 +28,9 @@ class Commander:
     json = logsApi.Position.getPosition(self.name, self.apiKey)
     self.__profileUrl__ = json['url']
     return json['coordinates']
+  @property
+  def coords(self):
+    return self.currentPosition
 
   @property
   def currentSystem(self):
@@ -101,7 +106,7 @@ class Status:
     if self.cachedAt == None or (datetime.datetime.now() - self.cachedAt > datetime.timedelta(minutes=2)):
       self.forceUpdate()
 
-class System:
+class System(Positionable):
   """
   Model for a star system. Uses both the “system” and “systems” API endpoints.
 
