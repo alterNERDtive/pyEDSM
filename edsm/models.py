@@ -227,3 +227,22 @@ class System(Positionable):
     self.__primaryStar = json['primaryStar']
 
     return self
+
+  @classmethod
+  def getSystems(self, *systemName):
+    """
+    Searches EDSM for a range of systems. Unknown systems will be silently
+    ignored (unless none can be found at all).
+
+    :param *systemName: either a single string to find systems names beginning
+      with it, or multiple full system names to query simultaneously
+    """
+
+    json = systemsApi.Systems.getSystems(*systemName)
+
+    systems = []
+    for system in json:
+      systems.append(System(system['name'], system['coords'], system['id'],
+        system['id64']))
+
+    return systems

@@ -135,3 +135,64 @@ class SystemTest(unittest.TestCase):
 
   def test_System_invalidName(self):
     self.assertRaises(exception.SystemNotFoundError, System("Lol").fetch)
+
+  def test_getSystems_search(self):
+    systems = System.getSystems("Pho Aoscs AA-A h")
+
+    self.assertEqual(3, len(systems))
+
+    system = systems[0]
+    self.assertEqual("Pho Aoscs AA-A h0", system.name)
+    self.assertEqual(47400376, system.id)
+    self.assertEqual(2394415, system.id64)
+
+    self.assertEqual(-3270.65625, system.coords['x'])
+    self.assertEqual(3135.5625, system.coords['y'])
+    self.assertEqual(24347.125, system.coords['z'])
+
+    system = systems[1]
+    self.assertEqual("Pho Aoscs AA-A h1", system.name)
+    self.assertEqual(34320464, system.id)
+    self.assertEqual(10783023, system.id64)
+
+    self.assertEqual(-3201.15625, system.coords['x'])
+    self.assertEqual(3247.8125, system.coords['y'])
+    self.assertEqual(24244.46875, system.coords['z'])
+
+    system = systems[2]
+    self.assertEqual("Pho Aoscs AA-A h3", system.name)
+    self.assertEqual(29715014, system.id)
+    self.assertEqual(27560239, system.id64)
+
+    self.assertEqual(-3213.9375, system.coords['x'])
+    self.assertEqual(3225.90625, system.coords['y'])
+    self.assertEqual(24485.21875, system.coords['z'])
+
+  def test_getSystems_list(self):
+    systems = System.getSystems("Sol", "Beagle Point")
+
+    sol = systems[1]
+    self.assertEqual("Sol", sol.name)
+
+    # ids
+    self.assertEqual(27, sol.id)
+    self.assertEqual(10477373803, sol.id64)
+
+    # coordinates
+    self.assertTrue(sol.coords)
+    self.assertEqual(sol.coords['x'], 0)
+    self.assertEqual(sol.coords['y'], 0)
+    self.assertEqual(sol.coords['z'], 0)
+
+    beagle = systems[0]
+    self.assertEqual("Beagle Point", beagle.name)
+
+    # ids
+    self.assertEqual(124406, beagle.id)
+    self.assertEqual(81973396946, beagle.id64)
+
+    # coordinates
+    self.assertTrue(beagle.coords)
+    self.assertEqual(beagle.coords['x'], -1111.5625)
+    self.assertEqual(beagle.coords['y'], -134.21875)
+    self.assertEqual(beagle.coords['z'], 65269.75)
