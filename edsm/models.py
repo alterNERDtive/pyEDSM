@@ -1,4 +1,5 @@
 import datetime
+from natsort import natsorted
 
 from . import logsApi, systemApi, systemsApi, statusApi
 from .base import Positionable
@@ -246,3 +247,17 @@ class System(Positionable):
         system['id64']))
 
     return systems
+
+  # comparison operators!
+
+  def __eq__(self, other):
+    if (self.id == other.id and self.id64 == other.id64):
+      return True
+    else:
+      return False
+
+  def __lt__(self, other):
+    return natsorted([self.name, other.name])[0] == self.name
+
+  def __gt__(self, other):
+    return natsorted([self.name, other.name])[1] == self.name

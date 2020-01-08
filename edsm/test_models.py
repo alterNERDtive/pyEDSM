@@ -196,3 +196,25 @@ class SystemTest(unittest.TestCase):
     self.assertEqual(beagle.coords['x'], -1111.5625)
     self.assertEqual(beagle.coords['y'], -134.21875)
     self.assertEqual(beagle.coords['z'], 65269.75)
+
+  def test_eq(self):
+    self.assertEqual(System("test", id=1, id64=64), System("other", id=1,
+      id64=64))
+    self.assertNotEqual(System("test", id=1, id64=64), System("test", id=1,
+      id64=65))
+    self.assertNotEqual(System("test", id=1, id64=64), System("test", id=2,
+      id64=64))
+
+  def test_lt(self):
+    self.assertLess(System("test"), System("test2"))
+    self.assertLess(System("test 2"), System("test 12"))
+    self.assertLess(System("Col 50 Sector"), System("Col 285 Sector"))
+    self.assertLess(System("Col 285 Sector"), System("Col 500 Sector"))
+    self.assertLess(System("Pho Aoscs AA-A h0"), System("Pho Aoscs AA-A h1"))
+
+  def test_gt(self):
+    self.assertGreater(System("test2"), System("test"))
+    self.assertGreater(System("test 12"), System("test 2"))
+    self.assertGreater(System("Col 285 Sector"), System("Col 50 Sector"))
+    self.assertGreater(System("Col 500 Sector"), System("Col 285 Sector"))
+    self.assertGreater(System("Pho Aoscs AA-A h1"), System("Pho Aoscs AA-A h0"))
