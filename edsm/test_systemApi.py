@@ -59,7 +59,7 @@ class BodiesTest(unittest.TestCase):
     self.assertEqual(28.739708, planet['orbitalInclination'])
     self.assertEqual(248.851364, planet['argOfPeriapsis'])
     self.assertEqual(57.64743634259259, planet['rotationalPeriod'])
-    self.assertTrue(planet['rotationalPeriodTidallyLocked'])
+    self.assertFalse(planet['rotationalPeriodTidallyLocked'])
     self.assertEqual(0.198277, planet['axialTilt'])
 
   def test_getBodiesById_HD43193(self):
@@ -117,7 +117,7 @@ class BodiesTest(unittest.TestCase):
     self.assertEqual(28.739708, planet['orbitalInclination'])
     self.assertEqual(248.851364, planet['argOfPeriapsis'])
     self.assertEqual(57.64743634259259, planet['rotationalPeriod'])
-    self.assertTrue(planet['rotationalPeriodTidallyLocked'])
+    self.assertFalse(planet['rotationalPeriodTidallyLocked'])
     self.assertEqual(0.198277, planet['axialTilt'])
 
   def test_wonkySystemNames(self):
