@@ -126,8 +126,6 @@ class System(Positionable):
   :method fetch: updates all attributes in one go
   """
   def __init__(self, name, coords=None, id=None, id64=None):
-    # FIXXME: this probably needs some way to make sure the system exists. Or
-    # not. Not sure yet how I want to handle wrong system names.
     self.name = name
     self.__coords = coords
     self.__id = id
@@ -138,33 +136,10 @@ class System(Positionable):
     self.__primaryStar = None
 
   @property
-  def name(self):
-    return self.__systemName
-  @name.setter
-  def name(self, name):
-    self.__systemName = name
-
-  @property
   def coords(self):
     if self.__coords == None:
       self.__coords = systemsApi.System.getCoordinates(self.name)['coords']
     return self.__coords
-
-  @property
-  def requirePermit(self):
-    if self.__requirePermit == None:
-      self.__updatePermit()
-    return self.__requirePermit
-  @property
-  def permitName(self):
-    if self.__requirePermit == None:
-      self.__updatePermit()
-    return self.__permitName
-  def __updatePermit(self):
-    permitInfo = systemsApi.System.getPermit(self.name)
-    self.__requirePermit = permitInfo['requirePermit']
-    if self.__requirePermit:
-      self.__permitName = permitInfo['permitName']
 
   @property
   def id(self):
@@ -184,6 +159,22 @@ class System(Positionable):
     self.__id = ids['id']
     if ids['id64']:
       self.__id64 = ids['id64']
+
+  @property
+  def requirePermit(self):
+    if self.__requirePermit == None:
+      self.__updatePermit()
+    return self.__requirePermit
+  @property
+  def permitName(self):
+    if self.__requirePermit == None:
+      self.__updatePermit()
+    return self.__permitName
+  def __updatePermit(self):
+    permitInfo = systemsApi.System.getPermit(self.name)
+    self.__requirePermit = permitInfo['requirePermit']
+    if self.__requirePermit:
+      self.__permitName = permitInfo['permitName']
 
   @property
   def information(self):
