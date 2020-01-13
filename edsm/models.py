@@ -28,7 +28,7 @@ class Commander(Positionable):
   @property
   def currentPosition(self):
     json = logsApi.Position.getPosition(self.name, self.apiKey)
-    self.__profileUrl__ = json['url']
+    self.profileUrl = json
     return json['coordinates']
   @property
   def coords(self):
@@ -37,21 +37,27 @@ class Commander(Positionable):
   @property
   def currentSystem(self):
     json = logsApi.Position.getSystem(self.name, self.apiKey)
-    self.__profileUrl__ = json['url']
+    self.profileUrl = json
     return json['system']
 
   @property
   def lastActivity(self):
     json = logsApi.Position.getSystem(self.name, self.apiKey)
-    self.__profileUrl__ = json['url']
+    self.profileUrl = json
     return json['dateLastActivity']
 
   @property
   def profileUrl(self):
     if self.__profileUrl__ == None:
       json = logsApi.Position.getSystem(self.name, self.apiKey)
-      self.__profileUrl__ = json['url']
+      self.profileUrl = json
     return self.__profileUrl__
+  @profileUrl.setter
+  def profileUrl(self, json):
+    if 'url' in json:
+      self.__profileUrl__ = json['url']
+    else:
+      self.__profileUrl__ = "hidden"
 
 class Status:
   """
