@@ -1,4 +1,5 @@
 import datetime
+from dateutil import parser as dateparser
 from natsort import natsorted
 from operator import attrgetter
 
@@ -44,7 +45,7 @@ class Commander(Positionable):
   def lastActivity(self):
     json = logsApi.Position.getSystem(self.name, self.apiKey)
     self.profileUrl = json
-    return json['dateLastActivity']
+    return dateparser.parse(json['dateLastActivity'])
 
   @property
   def profileUrl(self):
