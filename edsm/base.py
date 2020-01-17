@@ -1,8 +1,17 @@
 import math
 import requests
 from abc import ABC, abstractmethod
+from functools import singledispatch, update_wrapper
 
 from . import exception
+
+def singledispatchmethod(func):
+    dispatcher = singledispatch(func)
+    def wrapper(*args, **kw):
+        return dispatcher.dispatch(args[1].__class__)(*args, **kw)
+    wrapper.register = dispatcher.register
+    update_wrapper(wrapper, func)
+    return wrapper
 
 class ApiEndpoint:
   """
@@ -40,7 +49,8 @@ class Positionable(ABC):
   def coords(self):
     pass
 
-  def distanceTo(self, coords, roundTo=2):
+  @singledispatchmethod
+  def distanceTo(self, thing, roundTo=2):
     """ Calculates  the distance to another Positionable, or a set of x,y,z
     coordinates.
 
@@ -50,12 +60,23 @@ class Positionable(ABC):
       dict
     """
 
-    if isinstance(coords, Positionable):
-      coords = coords.coords
-    for d in (self.coords, coords):
-      if not isinstance(d, dict) or not all (k in d for k in ('x', 'y', 'z')):
-        raise ValueError("\"{}\" is not a valid coordinates dictionary".format(d))
+    if self == thing:
+      return 0
+    elif isinstance(thing, Positionable):
+      return self.distanceTo(thing.coords, roundTo=roundTo)
+    else:
+      raise ValueError("argument needs to be a coordinates dict or a Positionable object")
 
-    return round(math.sqrt((coords['x'] - self.coords['x'])**2
-      + (coords['y'] - self.coords['y'])**2
-      + (coords['z'] - self.coords['z'])**2 ), roundTo)
+  @distanceTo.register
+  def _(self, coords: dict, roundTo=2):
+    try:
+      if self.coords == coords:
+        return 0
+      else:
+        return round(math.sqrt((coords['x'] - self.coords['x'])**2
+          + (coords['y'] - self.coords['y'])**2
+          + (coords['z'] - self.coords['z'])**2 ), roundTo)
+    except KeyError:
+      for d in (self.coords, coords):
+        if not isinstance(d, dict) or not all (k in d for k in ('x', 'y', 'z')):
+          raise ValueError("\"{}\" is not a valid coordinates dictionary".format(d))

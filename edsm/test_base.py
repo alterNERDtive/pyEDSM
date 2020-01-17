@@ -56,17 +56,20 @@ class BaseTest(unittest.TestCase):
 
   def test_Positionable_distanceTo_invalidCoords(self):
     invalidCoords = {'x': 0, 'y': 0}
-    with self.assertRaises(ValueError):
-      self.thing1.distanceTo(invalidCoords)
+    self.assertRaises(ValueError, self.thing1.distanceTo, invalidCoords)
 
     invalidCoords = {'x': 0, 'z': 0}
-    with self.assertRaises(ValueError):
-      self.thing1.distanceTo(invalidCoords)
+    self.assertRaises(ValueError, self.thing1.distanceTo, invalidCoords)
 
     invalidCoords = {'z': 0, 'y': 0}
-    with self.assertRaises(ValueError):
-      self.thing1.distanceTo(invalidCoords)
+    self.assertRaises(ValueError, self.thing1.distanceTo, invalidCoords)
 
   def test_Positionable_distanceTo_invalidCoordsObject(self):
-    with self.assertRaises(ValueError):
-      self.thing1.distanceTo("hello world")
+    self.assertRaises(ValueError, self.thing1.distanceTo, "hello world")
+
+  def test_Positionable_distanceTo_sameCoords(self):
+    self.assertEqual(0, self.thing1.distanceTo(self.thing1.coords))
+
+  def test_Positionable_distanceTo_self(self):
+    self.assertEqual(0, self.thing1.distanceTo(self.thing1))
+    self.assertEqual(0, System("Sol").distanceTo(System("Sol")))
