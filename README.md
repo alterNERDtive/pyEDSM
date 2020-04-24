@@ -56,5 +56,5 @@ If you have no idea what I was saying in that last paragraph and / or the things
 mentioned there don’t fix your problem, please [file an 
 issue](https://github.com/alterNERDtive/pyEDSM/issues). Thanks! :)
 
-You can also [say “Hi” on Discord](https://discord.gg/Y8qM7N) if that is your 
+You can also [say “Hi” on Discord](https://discord.gg/7wKEDDr) if that is your 
 thing.
