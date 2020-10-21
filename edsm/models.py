@@ -30,7 +30,10 @@ class Commander(Positionable):
   def currentPosition(self):
     json = logsApi.Position.getPosition(self.name, self.apiKey)
     self.profileUrl = json
-    return json['coordinates']
+    if 'coordinates' in json:
+      return json['coordinates']
+    else:
+      return None
   @property
   def coords(self):
     return self.currentPosition
@@ -39,7 +42,7 @@ class Commander(Positionable):
   def currentSystem(self):
     json = logsApi.Position.getSystem(self.name, self.apiKey)
     self.profileUrl = json
-    return json['system']
+    return json['system'] or 'hidden'
 
   @property
   def lastActivity(self):
