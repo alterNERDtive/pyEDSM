@@ -256,7 +256,7 @@ class System(Positionable):
   # comparison operators!
 
   def __eq__(self, other):
-    if (self.id == other.id and self.id64 == other.id64):
+    if (type(self) == type(other) and self.id == other.id and self.id64 == other.id64):
       return True
     else:
       return False
