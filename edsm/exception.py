@@ -4,7 +4,7 @@ class ServerError(Exception):
   doesn’t reply with a `200 OK`, this is what’s going to be raised.
   """
   def __str__(self):
-    return "Server Error fetchichg {}, params: {}.".format(self.args[0],
+    return "Server Error fetching {}, params: {}.".format(self.args[0],
         self.args[1])
   pass
 
