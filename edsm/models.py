@@ -168,7 +168,7 @@ class System(Positionable):
     return self.__id64
   @property
   def ids(self):
-    return {id:self.id, id64:self.id64}
+    return {'id':self.id, 'id64':self.id64}
   def __updateIDs(self):
     ids = systemsApi.System.getIds(self.name)
     self.__id = ids['id']
