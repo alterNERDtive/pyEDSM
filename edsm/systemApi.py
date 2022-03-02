@@ -71,7 +71,7 @@ class Traffic(base.ApiEndpoint):
     return json
 
   @classmethod
-  def getTrafficbyId(cls, systemId):
+  def getTrafficById(cls, systemId):
     """
     Requests information about traffic in a system.
 
