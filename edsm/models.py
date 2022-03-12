@@ -135,6 +135,7 @@ class System(Positionable):
   2h)
   :attribute primaryStar: information about the primary star (dict)
   :attribute bodyCount: amount of bodies in the system (int)
+  :attribute traffic: information about traffic in the system (dict, cached for 2h)
 
   :method fetch: updates all attributes in one go
   """
@@ -147,6 +148,7 @@ class System(Positionable):
     self.__permitName = None
     self.__information = {'cachedAt': None}
     self.__primaryStar = None
+    self.__traffic = {'cachedAt' : None}
 
   @property
   def coords(self):
@@ -166,7 +168,7 @@ class System(Positionable):
     return self.__id64
   @property
   def ids(self):
-    return {id:self.id, id64:self.id64}
+    return {'id':self.id, 'id64':self.id64}
   def __updateIDs(self):
     ids = systemsApi.System.getIds(self.name)
     self.__id = ids['id']
@@ -211,6 +213,14 @@ class System(Positionable):
     spot.
     """
     return len(systemApi.Bodies.getBodies(self.name)['bodies'])
+
+  @property
+  def traffic(self):
+    if self.__traffic['cachedAt'] == None or (datetime.datetime.now()
+    - self.__traffic['cachedAt'] > datetime.timedelta(hours=2)):
+      self.__traffic = systemApi.Traffic.getTraffic(self.name)
+      self.__traffic['cachedAt'] = datetime.datetime.now()
+    return self.__traffic
 
   def fetch(self):
     """

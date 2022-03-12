@@ -1,6 +1,7 @@
 import unittest
 from . import exception
 from .systemApi import Bodies
+from .systemApi import Traffic
 
 class BodiesTest(unittest.TestCase):
 
@@ -125,3 +126,110 @@ class BodiesTest(unittest.TestCase):
     # FIXXME: I remember finding a system with “[]” in the name, but can’t
     # remember … and the search function in the usual tools aren’t very helpful
     # :)
+  
+class TrafficTest(unittest.TestCase):
+  def test_getTraffic_Sol(self):
+    json = Traffic.getTraffic('Sol')
+
+    self.assertIs(type(json), dict)
+
+    # system data
+    self.assertEqual(27, json['id'])
+    self.assertEqual(10477373803, json['id64'])
+    self.assertEqual('Sol', json['name'])
+    self.assertEqual('https://www.edsm.net/en/system/id/27/name/Sol', json['url'])
+    self.assertEqual('J. Calvert (Joshua)', json['discovery']['commander'])
+    self.assertEqual('2014-11-18 18:21:43', json['discovery']['date'])
+
+    # format
+    self.assertIn('breakdown', json)
+    self.assertIs(type(json['breakdown']), dict)
+
+    self.assertIn('traffic', json)
+    self.assertIn('total', json['traffic'])
+    self.assertIn('week', json['traffic'])
+    self.assertIn('day', json['traffic'])
+    self.assertIs(type(json['traffic']), dict)
+    self.assertIs(type(json['traffic']['total']), int)
+    self.assertIs(type(json['traffic']['week']), int)
+    self.assertIs(type(json['traffic']['day']), int)
+
+  def test_getTrafficById_Sol(self):
+    json = Traffic.getTrafficById(27)
+
+    self.assertIs(type(json), dict)
+
+    # system data
+    self.assertEqual(27, json['id'])
+    self.assertEqual(10477373803, json['id64'])
+    self.assertEqual('Sol', json['name'])
+    self.assertEqual('https://www.edsm.net/en/system/id/27/name/Sol', json['url'])
+    self.assertEqual('J. Calvert (Joshua)', json['discovery']['commander'])
+    self.assertEqual('2014-11-18 18:21:43', json['discovery']['date'])
+
+    # format
+    self.assertIn('breakdown', json)
+    self.assertIs(type(json['breakdown']), dict)
+
+    self.assertIn('traffic', json)
+    self.assertIn('total', json['traffic'])
+    self.assertIn('week', json['traffic'])
+    self.assertIn('day', json['traffic'])
+    self.assertIs(type(json['traffic']), dict)
+    self.assertIs(type(json['traffic']['total']), int)
+    self.assertIs(type(json['traffic']['week']), int)
+    self.assertIs(type(json['traffic']['day']), int)
+
+  def test_getTraffic_HD43193(self):
+    json = Traffic.getTraffic('HD 43193')
+    
+    self.assertIs(type(json), dict)
+    
+    # system data
+    self.assertEqual(85920, json['id'])
+    self.assertEqual(167244341, json['id64'])
+    self.assertEqual('HD 43193', json['name'])
+    self.assertEqual('https://www.edsm.net/en/system/id/85920/name/HD+43193', json['url'])
+    self.assertEqual('Virosh Lich', json['discovery']['commander'])
+    self.assertEqual('2015-02-11 19:20:59', json['discovery']['date'])
+
+    # format
+    self.assertIn('breakdown', json)
+    self.assertIs(type(json['breakdown']), dict)
+
+    self.assertIn('traffic', json)
+    self.assertIn('total', json['traffic'])
+    self.assertIn('week', json['traffic'])
+    self.assertIn('day', json['traffic'])
+    self.assertIs(type(json['traffic']), dict)
+    self.assertIs(type(json['traffic']['total']), int)
+    self.assertIs(type(json['traffic']['week']), int)
+    self.assertIs(type(json['traffic']['day']), int)
+
+  def test_getTrafficById_HD43193(self):
+    json = Traffic.getTrafficById(85920)
+
+    self.assertIs(type(json), dict)
+    
+    # system data
+    self.assertEqual(85920, json['id'])
+    self.assertEqual(167244341, json['id64'])
+    self.assertEqual('HD 43193', json['name'])
+    self.assertEqual('https://www.edsm.net/en/system/id/85920/name/HD+43193', json['url'])
+    self.assertEqual('Virosh Lich', json['discovery']['commander'])
+    self.assertEqual('2015-02-11 19:20:59', json['discovery']['date'])
+
+    # format
+    self.assertIn('breakdown', json)
+    self.assertIs(type(json['breakdown']), dict)
+
+    self.assertIn('traffic', json)
+    self.assertIn('total', json['traffic'])
+    self.assertIn('week', json['traffic'])
+    self.assertIn('day', json['traffic'])
+    self.assertIs(type(json['traffic']), dict)
+    self.assertIs(type(json['traffic']['total']), int)
+    self.assertIs(type(json['traffic']['week']), int)
+    self.assertIs(type(json['traffic']['day']), int)
+
+
