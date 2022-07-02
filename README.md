@@ -29,7 +29,7 @@ request.
   - [ ] shipyard
   - [ ] outfitting
   - [ ] factions
-  - [ ] traffic
+  - [x] traffic
   - [ ] deaths
 - [ ] Systems
   - [x] system
