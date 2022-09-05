@@ -49,7 +49,11 @@ class Commander(Positionable):
     json = logsApi.Position.getSystem(self.name, self.apiKey)
     self.profileUrl = json
     if 'dateLastActivity' in json:
-      return dateparser.parse(json['dateLastActivity'])
+      date = json['dateLastActivity']
+      if date is None:
+        return None
+      else:
+        return dateparser.parse(json['dateLastActivity'])
     else:
       return None
 

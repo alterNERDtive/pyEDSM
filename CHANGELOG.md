@@ -1,3 +1,12 @@
+# devel
+
+## Fixed
+
+* Looking up a CMDR with public profile, but hidden activity (= no date of last 
+  activity) will no longer throw an exception.
+
+-----
+
 # 0.2 (2022-07-02)
 
 ## Added
